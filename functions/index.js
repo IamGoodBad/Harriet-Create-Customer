@@ -4,14 +4,12 @@ const datastore = require('@google-cloud/datastore')()
 const runtimeVariable = require('./getVariable.js')
 var stripe
 
-var stripeKey = 'stripeKey'
-var deployment = 'harriet'
+var stripeKey = 'stripeKey' // this is the name of your stripe key in the deployment
+var deployment = 'harriet' // name your deployment here
 
 admin.initializeApp(functions.config().firebase)
 
 exports.createCustomer = functions.auth.user().onCreate(event => {
-
-  console.log(process.env)
 
   event.body = {}
   event.customer = {}
