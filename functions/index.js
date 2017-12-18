@@ -1,20 +1,15 @@
-const functions = require('firebase-functions');
-const admin = require('firebase-admin');
+const functions = require('firebase-functions')
+const admin = require('firebase-admin')
+const datastore = require('@google-cloud/datastore')()
 const runtimeVariable = require('./getVariable.js')
-const datastore = require('@google-cloud/datastore')();
 var stripe
 
 var stripeKey = 'stripeKey'
-var firebaseURL = 'firebaseURL'
-var deployment = 'garvey-dev'
+var deployment = 'harriet'
+
+admin.initializeApp(functions.config().firebase)
 
 exports.createCustomer = functions.auth.user().onCreate(event => {
-
-  // if (process.env.NODE_ENV == 'production') {
-
-  // } else {
-    
-  // }
 
   console.log(process.env)
 
@@ -25,7 +20,6 @@ exports.createCustomer = functions.auth.user().onCreate(event => {
 
   return runtimeVariable.get(event)
   .then(registerStripe)
-  .then(registerFirebase)
   .then(createStripeCustomer)
   .then(creatDatastoreRecord)
   .then(function(event) {
@@ -44,25 +38,6 @@ var registerStripe = function(event) {
   stripe = require("stripe")(event[stripeKey])
   return Promise.resolve(event)
 }
-
-var registerFirebase = function(event) {
-  if (process.env.NODE_ENV == 'production') {
-    admin.initializeApp(functions.config().firebase)
-    return Promise.resolve(event)
-  } else {
-    event.key = firebaseURL
-    return runtimeVariable.get(event)
-    .then(function(event) {
-      var serviceAccount = require('./serviceAccount.json');
-      admin.initializeApp({
-        credential: admin.credential.cert(serviceAccount),
-        databaseURL: event[firebaseKey]
-      });
-      return Promise.resolve(event)
-    })
-  }
-}
-
 
 var createStripeCustomer = function(event) {
 	return stripe.customers.create()
