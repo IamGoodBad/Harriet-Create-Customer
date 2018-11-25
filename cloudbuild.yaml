@@ -5,5 +5,5 @@ steps:
   args: [ 'test' ]
 - name: 'gcr.io/cloud-builders/npm'
   args: [ 'run', 'build.prod' ]
-- name: 'gcr.io/[PROJECT_ID]/firebase'
+- name: 'gcr.io/harriet-tubman/firebase'
   args: [ 'deploy', '-P', 'js-demo-fe-staging', '--token', '[FIREBASE_TOKEN]']
