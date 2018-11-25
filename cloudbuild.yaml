@@ -1,6 +1,9 @@
 steps:
-- name: gcr.io/cloud-builders/firebase
-  args:
-  - deploy
-  - --only
-  - functions
+- name: 'gcr.io/cloud-builders/npm'
+  args: [ 'install' ]
+- name: 'gcr.io/cloud-builders/npm'
+  args: [ 'test' ]
+- name: 'gcr.io/cloud-builders/npm'
+  args: [ 'run', 'build.prod' ]
+- name: 'gcr.io/[PROJECT_ID]/firebase'
+  args: [ 'deploy', '-P', 'js-demo-fe-staging', '--token', '[FIREBASE_TOKEN]']
