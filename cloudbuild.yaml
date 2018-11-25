@@ -1,9 +1,9 @@
 steps:
 - name: 'gcr.io/cloud-builders/npm'
   args: [ 'install' ]
-- name: 'gcr.io/cloud-builders/npm'
-  args: [ 'test' ]
-- name: 'gcr.io/cloud-builders/npm'
-  args: [ 'run', 'build.prod' ]
+# - name: 'gcr.io/cloud-builders/npm'
+#   args: [ 'test' ]
+# - name: 'gcr.io/cloud-builders/npm'
+#   args: [ 'run', 'build.prod' ]
 - name: 'gcr.io/harriet-tubman/firebase'
-  args: [ 'deploy', '-P', 'js-demo-fe-staging', '--token', '[FIREBASE_TOKEN]']
+  args: [ 'deploy', '-P', 'js-demo-fe-staging', '--token', 'poop']
