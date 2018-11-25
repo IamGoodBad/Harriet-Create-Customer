@@ -1,9 +1,5 @@
 steps:
-- name: 'gcr.io/cloud-builders/npm'
+- name: 'gcr.io/cloud-builders/npm:node-6.14.4'
   args: [ 'install' ]
-# - name: 'gcr.io/cloud-builders/npm'
-#   args: [ 'test' ]
-# - name: 'gcr.io/cloud-builders/npm'
-#   args: [ 'run', 'build.prod' ]
 - name: 'gcr.io/harriet-tubman/firebase'
-  args: [ 'deploy', '-P', 'js-demo-fe-staging', '--token', 'poop']
+  args: [ 'deploy', '--project', 'harriet-tubman', '--token', 'poop']
